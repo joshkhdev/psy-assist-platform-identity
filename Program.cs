@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 
 // Настройка IdentityServer4
 builder.Services.AddIdentityServer()
-     .AddSigningCredential(new X509Certificate2("certificate.pfx", "Psy!A55ist"))
+    .AddSigningCredential(new X509Certificate2("certificate.pfx", "Psy!A55ist"))
     .AddInMemoryClients(Config.Clients)
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddInMemoryApiResources(Config.ApiResources)
