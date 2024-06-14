@@ -1,0 +1,13 @@
+﻿# version: '3.4'
+
+services:
+  authservice:
+    image: authservice:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
