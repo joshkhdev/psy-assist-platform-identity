@@ -1,13 +1,15 @@
-﻿# version: '3.4'
+﻿version: '3.8'
 
 services:
   authservice:
-    image: authservice:latest
+    image: authservice
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "7000:80"
+      - "7443:443"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+
