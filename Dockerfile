@@ -17,7 +17,8 @@ RUN dotnet build "./AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 # Publish the application
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AuthService.csproj" -c $BUILD_CONFIGURATION -o /app/publish 
+# /p:UseAppHost=false
 
 # Create the final image
 FROM base AS final

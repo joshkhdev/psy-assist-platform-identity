@@ -4,13 +4,23 @@ using System.Security.Cryptography.X509Certificates;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var certPath = builder.Configuration["Certificate:Path"];
+var certPassword = builder.Configuration["Certificate:Password"];
+var certificate = new X509Certificate2(certPath, certPassword);
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(443, listenOptions =>
+    {
+        listenOptions.UseHttps(certPath, certPassword); // HTTPS
+    });
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-// Настройка CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policy =>
@@ -22,9 +32,8 @@ builder.Services.AddCors(options =>
 });
 
 
-// Настройка IdentityServer4
 builder.Services.AddIdentityServer()
-    .AddSigningCredential(new X509Certificate2("certificate.pfx", "Psy!A55ist"))
+    .AddSigningCredential(new X509Certificate2(certPath, certPassword))
     .AddInMemoryClients(Config.Clients)
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddInMemoryApiResources(Config.ApiResources)
@@ -34,7 +43,6 @@ builder.Services.AddTransient<ICustomTokenRequestValidator, CustomTokenRequestVa
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
