@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatformIdentity.Domain", "PsyAssistPlatformIdentity.Domain\PsyAssistPlatformIdentity.Domain.csproj", "{ABE6CEAB-06D0-467B-817F-ACEA630C542B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatformIdentity.Persistence", "PsyAssistPlatformIdentity.Persistence\PsyAssistPlatformIdentity.Persistence.csproj", "{DFBCF0C4-EFF9-49D9-8D0D-9FE75BDAD4B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatformIdentity.Application", "PsyAssistPlatformIdentity.Application\PsyAssistPlatformIdentity.Application.csproj", "{CF00A882-A297-46E2-ABD8-AEE28B883A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatformIdentity.WebApi", "PsyAssistPlatformIdentity.WebApi\PsyAssistPlatformIdentity.WebApi.csproj", "{2A18E8ED-07F3-4094-9940-6A9B0CDED87C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABE6CEAB-06D0-467B-817F-ACEA630C542B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE6CEAB-06D0-467B-817F-ACEA630C542B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE6CEAB-06D0-467B-817F-ACEA630C542B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE6CEAB-06D0-467B-817F-ACEA630C542B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFBCF0C4-EFF9-49D9-8D0D-9FE75BDAD4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFBCF0C4-EFF9-49D9-8D0D-9FE75BDAD4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFBCF0C4-EFF9-49D9-8D0D-9FE75BDAD4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFBCF0C4-EFF9-49D9-8D0D-9FE75BDAD4B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF00A882-A297-46E2-ABD8-AEE28B883A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF00A882-A297-46E2-ABD8-AEE28B883A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF00A882-A297-46E2-ABD8-AEE28B883A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF00A882-A297-46E2-ABD8-AEE28B883A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A18E8ED-07F3-4094-9940-6A9B0CDED87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A18E8ED-07F3-4094-9940-6A9B0CDED87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A18E8ED-07F3-4094-9940-6A9B0CDED87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A18E8ED-07F3-4094-9940-6A9B0CDED87C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
