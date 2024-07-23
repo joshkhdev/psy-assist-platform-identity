@@ -10,6 +10,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PsyAssistPlatform.AuthService.Application\**" />
+    <Compile Remove="PsyAssistPlatform.AuthService.Domain\**" />
+    <Compile Remove="PsyAssistPlatform.AuthService.Persistence\**" />
+    <Compile Remove="PsyAssistPlatform.AuthService.WebApi\**" />
+    <Content Remove="PsyAssistPlatform.AuthService.Application\**" />
+    <Content Remove="PsyAssistPlatform.AuthService.Domain\**" />
+    <Content Remove="PsyAssistPlatform.AuthService.Persistence\**" />
+    <Content Remove="PsyAssistPlatform.AuthService.WebApi\**" />
+    <EmbeddedResource Remove="PsyAssistPlatform.AuthService.Application\**" />
+    <EmbeddedResource Remove="PsyAssistPlatform.AuthService.Domain\**" />
+    <EmbeddedResource Remove="PsyAssistPlatform.AuthService.Persistence\**" />
+    <EmbeddedResource Remove="PsyAssistPlatform.AuthService.WebApi\**" />
+    <None Remove="PsyAssistPlatform.AuthService.Application\**" />
+    <None Remove="PsyAssistPlatform.AuthService.Domain\**" />
+    <None Remove="PsyAssistPlatform.AuthService.Persistence\**" />
+    <None Remove="PsyAssistPlatform.AuthService.WebApi\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
