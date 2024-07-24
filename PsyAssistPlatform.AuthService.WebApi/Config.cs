@@ -9,6 +9,7 @@ public class Config
         [
         new IdentityResources.OpenId(),
         new IdentityResources.Profile(),
+        new IdentityResource("roles", "User roles", new List<string> { "role" })
     ];
 
     public static IEnumerable<ApiScope> ApiScopes =>
