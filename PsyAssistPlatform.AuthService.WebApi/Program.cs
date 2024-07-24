@@ -2,17 +2,17 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using PsyAssistPlatform.AuthService.Application.Interfaces.Dto.User;
 using PsyAssistPlatform.AuthService.Application.Interfaces.Service;
 using PsyAssistPlatform.AuthService.Application.Services;
 using PsyAssistPlatform.AuthService.Domain;
 using PsyAssistPlatform.AuthService.Persistence;
 using PsyAssistPlatform.AuthService.WebApi;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
@@ -20,10 +20,10 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
-// JWT configuration
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-builder.Services.Configure<JwtSettings>(jwtSettings);
-var key = Encoding.ASCII.GetBytes(jwtSettings.Get<JwtSettings>().Secret);
+var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate_Path"]);
+var certPassword = builder.Configuration["Certificate_Password"];
+var certificate = new X509Certificate2(certPath, certPassword);
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -43,17 +43,17 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
-
 builder.Services.AddIdentityServer(x =>
 {
     x.IssuerUri = "https://psy-authservice.containers.cloud.ru";
 })
-    .AddDeveloperSigningCredential()
+     .AddSigningCredential(certificate)
     .AddInMemoryClients(Config.Clients)
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddInMemoryApiResources(Config.ApiResources)
     .AddInMemoryApiScopes(Config.ApiScopes)
-    .AddAspNetIdentity<User>();
+    .AddAspNetIdentity<User>()
+    .AddProfileService<CustomProfileService>(); // Add custom profile service
 
 builder.Services.AddAuthentication(options =>
 {
@@ -68,9 +68,9 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = builder.Configuration["Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        ValidIssuer = "https://psy-authservice.containers.cloud.ru", // Use the issuer from the certificate
+        ValidAudience = "myApi", // Specify your audience
+        IssuerSigningKey = new X509SecurityKey(certificate)
     };
 });
 
@@ -83,13 +83,12 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-    //dbContext.Database.Migrate();
+    //await dbContext.Database.MigrateAsync();
 
     // Seed the database
     var config = app.Services.GetRequiredService<IConfiguration>();
     var connectionString = config.GetConnectionString("DefaultConnection");
-    //DbInitializer.EnsureSeedData(connectionString);
-    DbInitializer.Initialize(dbContext, connectionString);
+    await DbInitializer.EnsureSeedData(connectionString);
 }
 
 if (app.Environment.IsDevelopment())
@@ -100,18 +99,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
-//app.UseHttpsRedirection();
-
 app.UseRouting();
 app.UseCors("CorsPolicy");
 
 app.UseIdentityServer();
+app.UseAuthentication(); // Add this line
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute();
-});
 app.Run();

@@ -36,4 +36,10 @@
     <ProjectReference Include="..\PsyAssistPlatform.AuthService.Persistence\PsyAssistPlatform.AuthService.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="keys\" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties tempkey_1jwk__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
+
 </Project>
