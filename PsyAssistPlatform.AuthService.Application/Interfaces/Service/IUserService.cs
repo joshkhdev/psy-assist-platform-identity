@@ -5,7 +5,7 @@ namespace PsyAssistPlatform.AuthService.Application.Interfaces.Service;
 
 public interface IUserService
 {
-    Task<User> RegisterUserAsync(ICreateUser model, RoleType role, CancellationToken cancellationToken);
+    Task<User> RegisterUserAsync(ICreateUser model, CancellationToken cancellationToken);
 
     Task<IEnumerable<User>> GetActiveUsersAsync(CancellationToken cancellationToken);
 

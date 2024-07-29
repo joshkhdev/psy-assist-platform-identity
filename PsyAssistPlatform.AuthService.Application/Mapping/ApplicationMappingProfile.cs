@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using PsyAssistPlatform.AuthService.Application.Dto.Role;
 using PsyAssistPlatform.AuthService.Application.Dto.User;
 using PsyAssistPlatform.AuthService.Application.Interfaces.Dto.User;
@@ -10,13 +11,13 @@ public class ApplicationMappingProfile : Profile
 {
     public ApplicationMappingProfile()
     {
-        //CreateRoleMap();
-        //CreateUserMap();
+        CreateRoleMap();
+        CreateUserMap();
     }
 
     private void CreateRoleMap()
     {
-        //CreateMap<Role, RoleDto>();
+        CreateMap<IdentityRole, RoleDto>();
     }
 
     private void CreateUserMap()
