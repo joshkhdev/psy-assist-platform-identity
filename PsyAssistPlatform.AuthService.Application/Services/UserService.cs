@@ -15,11 +15,31 @@ namespace PsyAssistPlatform.AuthService.Application.Services
             _userManager = userManager;
         }
 
+        public async Task<User> RegisterUserAsync(ICreateUser model, CancellationToken cancellationToken)
+        {
+            var user = new User
+            {
+                UserName = model.Name,
+                Email = model.Email,
+                Name = model.Name,
+                RoleType = (RoleType)model.RoleId,
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                throw new Exception(result.Errors.First().Description);
+            }
+
+            await _userManager.AddToRoleAsync(user, user.RoleType.ToDatabaseString());
+
+            return user;
+        }
+
         public async Task<IEnumerable<User>> GetActiveUsersAsync(CancellationToken cancellationToken)
         {
             return _userManager.Users
-                .Where(u => !u.IsBlocked)
-                .ToList();
+                .Where(u => !u.IsBlocked).ToList();
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken cancellationToken)
@@ -93,27 +113,6 @@ namespace PsyAssistPlatform.AuthService.Application.Services
 
             user.IsBlocked = true;
             await _userManager.UpdateAsync(user);
-        }
-
-        public async Task<User> RegisterUserAsync(ICreateUser model, RoleType role, CancellationToken cancellationToken)
-        {
-            var user = new User
-            {
-                UserName = model.Name,
-                Email = model.Email,
-                Name = model.Name,
-                RoleType = role,
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-            {
-                throw new Exception(result.Errors.First().Description);
-            }
-
-            await _userManager.AddToRoleAsync(user, role.ToDatabaseString());
-
-            return user;
         }
     }
 }

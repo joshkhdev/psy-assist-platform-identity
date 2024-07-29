@@ -7,4 +7,6 @@ public interface ICreateUser
     string Email { get; set; }
 
     string Password { get; set; }
+
+    int RoleId { get; set; }
 }

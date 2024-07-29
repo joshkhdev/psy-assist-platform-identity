@@ -9,9 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["PsyAssistPlatform.AuthService.WebApi/PsyAssistPlatform.AuthService.WebApi.csproj", "PsyAssistPlatform.AuthService.WebApi/"]
-COPY ["PsyAssistPlatform.AuthService.Application/PsyAssistPlatform.AuthService.Application.csproj", "PsyAssistPlatform.AuthService.Application/"]
-COPY ["PsyAssistPlatform.AuthService.Domain/PsyAssistPlatform.AuthService.Domain.csproj", "PsyAssistPlatform.AuthService.Domain/"]
-COPY ["PsyAssistPlatform.AuthService.Persistence/PsyAssistPlatform.AuthService.Persistence.csproj", "PsyAssistPlatform.AuthService.Persistence/"]
 RUN dotnet restore "./PsyAssistPlatform.AuthService.WebApi/PsyAssistPlatform.AuthService.WebApi.csproj"
 COPY . .
 WORKDIR "/src/PsyAssistPlatform.AuthService.WebApi"
@@ -24,5 +21,5 @@ RUN dotnet publish "./PsyAssistPlatform.AuthService.WebApi.csproj" -c $BUILD_CON
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ["./keys/certificate.pfx", "/app/certificate.pfx"]
 ENTRYPOINT ["dotnet", "PsyAssistPlatform.AuthService.WebApi.dll"]
-COPY ["PsyAssistPlatform.AuthService.WebApi/keys/certificate.pfx", "/app/certificate.pfx"]

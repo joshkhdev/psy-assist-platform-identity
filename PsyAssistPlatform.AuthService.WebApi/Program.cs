@@ -2,15 +2,14 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PsyAssistPlatform.AuthService.Application.Interfaces.Service;
 using PsyAssistPlatform.AuthService.Application.Services;
 using PsyAssistPlatform.AuthService.Domain;
 using PsyAssistPlatform.AuthService.Persistence;
 using PsyAssistPlatform.AuthService.WebApi;
+using PsyAssistPlatform.AuthService.WebApi.Extensions;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +19,26 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
-var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate_Path"]);
+var certPath =
+#if DEBUG
+    Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate_Path"]);
+#else
+    builder.Configuration["Certificate_Path"];
+#endif
+
 var certPassword = builder.Configuration["Certificate_Password"];
 var certificate = new X509Certificate2(certPath, certPassword);
 
+#if !DEBUG
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5001);
+});
+#endif
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
@@ -45,7 +56,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 builder.Services.AddIdentityServer(x =>
 {
-    x.IssuerUri = "https://psy-authservice.containers.cloud.ru";
+    x.IssuerUri = builder.Configuration["IssuerUri"];
 })
      .AddSigningCredential(certificate)
     .AddInMemoryClients(Config.Clients)
@@ -68,7 +79,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "https://psy-authservice.containers.cloud.ru", // Use the issuer from the certificate
+        ValidIssuer = builder.Configuration["IssuerUri"], // Use the issuer from the certificate
         ValidAudience = "myApi", // Specify your audience
         IssuerSigningKey = new X509SecurityKey(certificate)
     };

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PsyAssistPlatform.AuthService.Application.Interfaces.Service;
-using PsyAssistPlatform.AuthService.Domain;
 using PsyAssistPlatform.AuthService.WebApi.Models;
+using PsyAssistPlatform.AuthService.WebApi.Models.User;
 
 namespace PsyAssistPlatform.AuthService.WebApi.Controllers
 {
@@ -18,7 +18,7 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] CreateUserModel model, [FromQuery] RoleType role, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromBody] CreateUserModel model, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -27,7 +27,7 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
 
             try
             {
-                var user = await _userService.RegisterUserAsync(model, role, cancellationToken);
+                var user = await _userService.RegisterUserAsync(model, cancellationToken);
                 return Ok(new { user.Id, user.Email, user.Name });
             }
             catch (Exception ex)
@@ -36,12 +36,13 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
             }
         }
 
-        [HttpGet("active")]
+        /// <summary>
+        /// Получить список действующих пользователей
+        /// </summary>
+        [HttpGet()]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetActiveUsersAsync(CancellationToken cancellationToken)
         {
-            var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
-
             try
             {
                 var users = await _userService.GetActiveUsersAsync(cancellationToken);
@@ -51,6 +52,98 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
             {
                 return BadRequest(new { Message = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Получить список всех пользователей
+        /// </summary>
+        [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsersAsync(CancellationToken cancellationToken)
+        {
+            if (await _userService.GetAllUsersAsync(cancellationToken) is { } activeUsers)
+            {
+                return Ok(activeUsers.Select(user => new UserResponse()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    IsBlocked = user.IsBlocked,
+                    RoleId = (int)user.RoleType,
+                }));
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        /// <summary>
+        /// Получить пользователя по Id
+        /// </summary>
+        [HttpGet("{id:Guid}")]
+        [Authorize]
+        public async Task<ActionResult<UserResponse>> GetUserByIdAsync(string id, CancellationToken cancellationToken)
+        {
+            if (await _userService.GetUserByIdAsync(id, cancellationToken) is { } user)
+            {
+                return Ok(new UserResponse
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Email = user.Email,
+                    IsBlocked = user.IsBlocked,
+                    RoleId = (int)user.RoleType
+                });
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        /// <summary>
+        /// Создать пользователя
+        /// </summary>
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateUserAsync(CreateUserRequest createRequest, CancellationToken cancellationToken)
+        {
+            await _userService.CreateUserAsync(createRequest, cancellationToken);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Обновить данные пользователя
+        /// </summary>
+        [HttpPut("{id:Guid}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUserAsync(string id, UpdateUserRequest updateRequest, CancellationToken cancellationToken)
+        {
+            await _userService.UpdateUserAsync(id, updateRequest, cancellationToken);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Разблокировать пользователя
+        /// </summary>
+        [HttpPut("{id:Guid}/unblock")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UnblockUserAsync(string id, CancellationToken cancellationToken)
+        {
+            await _userService.UnblockUserAsync(id, cancellationToken);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Заблокировать пользователя
+        /// </summary>
+        [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> BlockUserAsync(string id, CancellationToken cancellationToken)
+        {
+            await _userService.BlockUserAsync(id, cancellationToken);
+            return Ok();
         }
     }
 }

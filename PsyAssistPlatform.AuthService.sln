@@ -4,20 +4,30 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{90A34DC0-EDFB-4BC4-9AE7-49F756E7B403}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		PsyAssistPlatform.AuthService.WebApi\Dockerfile = PsyAssistPlatform.AuthService.WebApi\Dockerfile
+		PsyAssistPlatform.AuthService.WebApi\Dockerfile.original = PsyAssistPlatform.AuthService.WebApi\Dockerfile.original
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D3E026A5-1281-4DA0-BB15-3BF388EFA0DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{5F77679F-A47B-4D98-8C0C-C934BCE32A13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatform.AuthService.Application", "PsyAssistPlatform.AuthService.Application\PsyAssistPlatform.AuthService.Application.csproj", "{F56438E6-32EC-4534-BB1C-15FF5621DE47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Application", "PsyAssistPlatform.AuthService.Application\PsyAssistPlatform.AuthService.Application.csproj", "{F56438E6-32EC-4534-BB1C-15FF5621DE47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatform.AuthService.Domain", "PsyAssistPlatform.AuthService.Domain\PsyAssistPlatform.AuthService.Domain.csproj", "{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Domain", "PsyAssistPlatform.AuthService.Domain\PsyAssistPlatform.AuthService.Domain.csproj", "{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatform.AuthService.Persistence", "PsyAssistPlatform.AuthService.Persistence\PsyAssistPlatform.AuthService.Persistence.csproj", "{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Persistence", "PsyAssistPlatform.AuthService.Persistence\PsyAssistPlatform.AuthService.Persistence.csproj", "{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsyAssistPlatform.AuthService.WebApi", "PsyAssistPlatform.AuthService.WebApi\PsyAssistPlatform.AuthService.WebApi.csproj", "{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.WebApi", "PsyAssistPlatform.AuthService.WebApi\PsyAssistPlatform.AuthService.WebApi.csproj", "{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53DD559E-F868-4733-82E3-C75705A38882}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
