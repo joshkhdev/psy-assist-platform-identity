@@ -58,7 +58,7 @@ builder.Services.AddIdentityServer(x =>
 {
     x.IssuerUri = builder.Configuration["IssuerUri"];
 })
-     .AddSigningCredential(certificate)
+    .AddSigningCredential(certificate)
     .AddInMemoryClients(Config.Clients)
     .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddInMemoryApiResources(Config.ApiResources)
@@ -94,7 +94,6 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-    //await dbContext.Database.MigrateAsync();
 
     // Seed the database
     var config = app.Services.GetRequiredService<IConfiguration>();
@@ -114,7 +113,7 @@ app.UseRouting();
 app.UseCors("CorsPolicy");
 
 app.UseIdentityServer();
-app.UseAuthentication(); // Add this line
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

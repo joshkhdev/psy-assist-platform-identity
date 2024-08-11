@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using PsyAssistPlatform.AuthService.Application.Interfaces.Dto.Role;
 
 namespace PsyAssistPlatform.AuthService.Application.Interfaces.Service;
 

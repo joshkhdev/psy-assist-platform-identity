@@ -1,7 +1,7 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace PsyAssistPlatform.AuthService.WebApi;
+namespace PsyAssistPlatform.AuthService.IdentityService;
 
 public class Config
 {
@@ -50,5 +50,6 @@ public class Config
                 AccessTokenLifetime = 3600,
                 AllowOfflineAccess = true // Enable refresh tokens
             }
+
         };
 }

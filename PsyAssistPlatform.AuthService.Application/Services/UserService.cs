@@ -38,8 +38,7 @@ namespace PsyAssistPlatform.AuthService.Application.Services
 
         public async Task<IEnumerable<User>> GetActiveUsersAsync(CancellationToken cancellationToken)
         {
-            return _userManager.Users
-                .Where(u => !u.IsBlocked).ToList();
+            return _userManager.Users.Where(u => !u.IsBlocked).ToList();
         }
 
         public async Task<IEnumerable<User>> GetAllUsersAsync(CancellationToken cancellationToken)
@@ -72,11 +71,7 @@ namespace PsyAssistPlatform.AuthService.Application.Services
 
         public async Task<User> UpdateUserAsync(string id, IUpdateUser userData, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                throw new Exception("User not found");
-            }
+            var user = await _userManager.FindByIdAsync(id) ?? throw new Exception("User not found");
 
             user.Name = userData.Name;
             user.Email = userData.Email;

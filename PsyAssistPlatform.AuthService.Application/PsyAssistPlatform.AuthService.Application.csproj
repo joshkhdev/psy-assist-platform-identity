@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PsyAssistPlatform.AuthService.Domain\PsyAssistPlatform.AuthService.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Repository\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
 
 </Project>

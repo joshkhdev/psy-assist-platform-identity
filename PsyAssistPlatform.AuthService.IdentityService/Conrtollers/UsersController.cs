@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PsyAssistPlatform.AuthService.Application.Interfaces.Service;
-using PsyAssistPlatform.AuthService.WebApi.Models;
-using PsyAssistPlatform.AuthService.WebApi.Models.User;
+using PsyAssistPlatform.AuthService.IdentityService.Model.User;
 
-namespace PsyAssistPlatform.AuthService.WebApi.Controllers
+namespace PsyAssistPlatform.AuthService.IdentityService.Conrtollers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -32,7 +31,7 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(new { ex.Message });
             }
         }
 
@@ -50,7 +49,7 @@ namespace PsyAssistPlatform.AuthService.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(new { ex.Message });
             }
         }
 

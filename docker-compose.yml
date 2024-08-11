@@ -1,22 +1,28 @@
-version: '3.4'
-
 services:
-  # psyassistplatform.authservice.webapi:
-  #   image: psyassistplatform.authservice.webapi
+  # authservice:
   #   build:
   #     context: .
-  #     dockerfile: PsyAssistPlatform.AuthService.WebApi/Dockerfile
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - "5001:5001"
+  #   volumes:
+  #     - ./PsyAssistPlatform.AuthService.WebApi/keys/certificate.pfx:/app/certificate.pfx
+  #   depends_on:
+  #     - db
 
-  psyassistplatform.authservice.db:
-    image: postgres
+  db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: postgres
-    ports:
-      - "5432:5432"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pgdata:/home/alexey/postgresql_data
+    user: "1000:1000"
 
 volumes:
-  postgres_data:
+  pgdata:
+    driver: local

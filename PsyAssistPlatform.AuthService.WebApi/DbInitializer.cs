@@ -1,17 +1,14 @@
-﻿using IdentityModel;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PsyAssistPlatform.Application.Extensions;
 using PsyAssistPlatform.AuthService.Domain;
 using PsyAssistPlatform.AuthService.Persistence;
 using PsyAssistPlatform.AuthService.Persistence.Data;
-using System.Security.Claims;
 
 namespace PsyAssistPlatform.AuthService.WebApi
 {
     public class DbInitializer
     {
-
         public static void Initialize(AuthDbContext context, string connectionString)
         {
             InitializeDatabase(context);
@@ -43,56 +40,66 @@ namespace PsyAssistPlatform.AuthService.WebApi
 
         public static async Task EnsureSeedData(string connectionString)
         {
-            var services = new ServiceCollection();
-            services.AddLogging();
-            services.AddDbContext<AuthDbContext>(options => options.UseNpgsql(connectionString));
-
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<AuthDbContext>()
-                .AddDefaultTokenProviders();
-
-            using var serviceProvider = services.BuildServiceProvider();
-            using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            var context = scope.ServiceProvider.GetService<AuthDbContext>();
-            //context.Database.EnsureCreated();
-
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            foreach (RoleType role in Enum.GetValues(typeof(RoleType)))
+            try
             {
-                var roleName = role.ToDatabaseString();
 
-                if (!await roleManager.RoleExistsAsync(roleName))
+                var services = new ServiceCollection();
+                services.AddLogging();
+                services.AddDbContext<AuthDbContext>(options => options.UseNpgsql(connectionString));
+
+                services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<AuthDbContext>()
+                    .AddDefaultTokenProviders();
+
+                using var serviceProvider = services.BuildServiceProvider();
+                using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+                var context = scope.ServiceProvider.GetService<AuthDbContext>();
+                var t = context.Database.EnsureCreated();
+                //context.Database.Migrate();
+                //var t2 = context.Database.EnsureCreated();
+
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                foreach (RoleType role in Enum.GetValues(typeof(RoleType)))
                 {
-                    await roleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
+                    var roleName = role.ToDatabaseString();
 
-            AddFakeData(context);
-
-            var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-            var firstUser = await userMgr.FindByNameAsync(FakeDataFactory.Users.FirstOrDefault().Name);
-
-            if (firstUser == null)
-            {
-                foreach (var fakeUser in FakeDataFactory.Users)
-                {
-                    fakeUser.UserName = fakeUser.Name.Replace(" ", "");
-                    var result = await userMgr.CreateAsync(fakeUser, "Pass123$");
-
-                    if (result.Succeeded)
+                    if (!await roleManager.RoleExistsAsync(roleName))
                     {
-                        Console.WriteLine($"Fake user created: {fakeUser.Name}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Fake user creating failed: {result.Errors.First().Description}");
+                        await roleManager.CreateAsync(new IdentityRole(roleName));
                     }
                 }
+
+                AddFakeData(context);
+
+                var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var firstUser = await userMgr.FindByNameAsync(FakeDataFactory.Users.FirstOrDefault().Name);
+
+                if (firstUser == null)
+                {
+                    foreach (var fakeUser in FakeDataFactory.Users)
+                    {
+                        fakeUser.UserName = fakeUser.Name.Replace(" ", "");
+                        var result = await userMgr.CreateAsync(fakeUser, "Pass123$");
+
+                        if (result.Succeeded)
+                        {
+                            Console.WriteLine($"Fake user created: {fakeUser.Name}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Fake user creating failed: {result.Errors.First().Description}");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex}");
             }
 
 
-            var alice = userMgr.FindByNameAsync("alice").Result;
+            //var alice = userMgr.FindByNameAsync("alice").Result;
             //if (alice == null)
             //{
             //    alice = new User
