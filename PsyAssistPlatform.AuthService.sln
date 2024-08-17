@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{90A34DC0-EDFB-4BC4-9AE7-49F756E7B403}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D3E026A5-1281-4DA0-BB15-3BF388EFA0DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{5F77679F-A47B-4D98-8C0C-C934BCE32A13}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Application", "PsyAssistPlatform.AuthService.Application\PsyAssistPlatform.AuthService.Application.csproj", "{F56438E6-32EC-4534-BB1C-15FF5621DE47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Domain", "PsyAssistPlatform.AuthService.Domain\PsyAssistPlatform.AuthService.Domain.csproj", "{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.Persistence", "PsyAssistPlatform.AuthService.Persistence\PsyAssistPlatform.AuthService.Persistence.csproj", "{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.WebApi", "PsyAssistPlatform.AuthService.WebApi\PsyAssistPlatform.AuthService.WebApi.csproj", "{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53DD559E-F868-4733-82E3-C75705A38882}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile_db = Dockerfile_db
+		readme.md = readme.md
+		Scheme1.md = Scheme1.md
+		Scheme1.puml = Scheme1.puml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.IdentityService", "PsyAssistPlatform.AuthService.IdentityService\PsyAssistPlatform.AuthService.IdentityService.csproj", "{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseProxyService", "DatabaseProxyService", "{DEE1FFD3-B987-44BC-B07E-6D9B80A74EBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.DatabaseProxyService", "PsyAssistPlatform.AuthService.DatabaseProxyService\PsyAssistPlatform.AuthService.DatabaseProxyService.csproj", "{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F56438E6-32EC-4534-BB1C-15FF5621DE47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F56438E6-32EC-4534-BB1C-15FF5621DE47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F56438E6-32EC-4534-BB1C-15FF5621DE47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F56438E6-32EC-4534-BB1C-15FF5621DE47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C5A2ADC-B855-4E59-8FF0-0C73E16D0C07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F56438E6-32EC-4534-BB1C-15FF5621DE47} = {90A34DC0-EDFB-4BC4-9AE7-49F756E7B403}
+		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4} = {90A34DC0-EDFB-4BC4-9AE7-49F756E7B403}
+		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4} = {D3E026A5-1281-4DA0-BB15-3BF388EFA0DB}
+		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8} = {5F77679F-A47B-4D98-8C0C-C934BCE32A13}
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442} = {5F77679F-A47B-4D98-8C0C-C934BCE32A13}
+		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A} = {DEE1FFD3-B987-44BC-B07E-6D9B80A74EBC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21CB883D-369B-4BE7-8BF9-F9D7713BB24B}
+	EndGlobalSection
+EndGlobal

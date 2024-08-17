@@ -1,0 +1,20 @@
+FROM postgres:latest
+
+# Установить переменные окружения для PostgreSQL
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=123456
+ENV POSTGRES_DB=postgres
+ENV POSTGRES_HOST_AUTH_METHOD=trust
+ENV PGDATA=/home/alexey/postgresql_data
+
+# Создать пользователя с UID 1000 и назначить права на директорию
+RUN addgroup --gid 1000 appuser \
+    && adduser --uid 1000 --gid 1000 --home /home/appuser --shell /bin/bash --disabled-password --gecos "" appuser \
+    && mkdir -p /home/alexey/postgresql_data \
+    && chown -R appuser:appuser /home/alexey/postgresql_data /home/appuser
+
+# Переключиться на пользователя appuser
+USER appuser
+
+# Запуск PostgreSQL
+CMD ["postgres"]
