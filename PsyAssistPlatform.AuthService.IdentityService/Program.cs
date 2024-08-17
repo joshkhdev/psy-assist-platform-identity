@@ -17,7 +17,7 @@ namespace PsyAssistPlatform.AuthService.IdentityService;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +58,6 @@ public class Program
             };
         });
 
-        // Регистрация кастомных реализаций IUserStore, IUserPasswordStore и IRoleStore
         builder.Services.AddScoped<IUserStore<User>, CustomUserStore>();
         builder.Services.AddScoped<IUserPasswordStore<User>, CustomUserStore>();
         builder.Services.AddScoped<IRoleStore<IdentityRole>, CustomRoleStore>();

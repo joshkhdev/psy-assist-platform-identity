@@ -21,14 +21,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{53DD559E-F868-4733-82E3-C75705A38882}"
 	ProjectSection(SolutionItems) = preProject
-		Dockerfile = Dockerfile
 		Dockerfile_db = Dockerfile_db
 		readme.md = readme.md
 		Scheme1.md = Scheme1.md
 		Scheme1.puml = Scheme1.puml
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{2BB32261-2F79-42E6-8F1B-B626FA92B8D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyAssistPlatform.AuthService.IdentityService", "PsyAssistPlatform.AuthService.IdentityService\PsyAssistPlatform.AuthService.IdentityService.csproj", "{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442}"
 EndProject
@@ -79,7 +76,7 @@ Global
 		{95BE014D-0E52-4DA5-ADD6-D3B6B5D6DFC4} = {90A34DC0-EDFB-4BC4-9AE7-49F756E7B403}
 		{C3BE4671-ABE6-4B6D-B478-22E5EE296DF4} = {D3E026A5-1281-4DA0-BB15-3BF388EFA0DB}
 		{C9D6939A-CA87-4BAF-842B-2D1A96673EE8} = {5F77679F-A47B-4D98-8C0C-C934BCE32A13}
-		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442} = {2BB32261-2F79-42E6-8F1B-B626FA92B8D2}
+		{9A44C960-DF9B-4C19-A1B2-86BC5D4A9442} = {5F77679F-A47B-4D98-8C0C-C934BCE32A13}
 		{B5D5A4D0-B35A-4BC5-891B-3E7879B9F85A} = {DEE1FFD3-B987-44BC-B07E-6D9B80A74EBC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

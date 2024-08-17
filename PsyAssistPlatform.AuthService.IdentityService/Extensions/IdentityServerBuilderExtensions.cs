@@ -8,12 +8,10 @@ public static class IdentityServerBuilderExtensions
     {
         if (environment.IsDevelopment())
         {
-            // Для Development среды используем Developer Signing Credential
             builder.AddDeveloperSigningCredential();
         }
         else
         {
-            // Для Production среды используем реальный сертификат
             var certPath = Path.Combine(environment.ContentRootPath, configuration["Certificate_Path"]);
             var certPassword = configuration["Certificate_Password"];
             var certificate = new X509Certificate2(certPath, certPassword);

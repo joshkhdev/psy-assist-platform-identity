@@ -1,8 +1,4 @@
-﻿
-
-
-
-# Описание проектов
+﻿# Описание проектов
 
 ## Core
 
@@ -14,13 +10,7 @@
 
 ## DatabaseProxyService
 
-WebApi проект с контроллером, для работы с базой данных на одном физической машине. 
-
-## IdentityService
-
-WebApi проект с реализацией IdentityServer4.
-Не содержит базу данных пользователей и ролей. Обращается к ней через API DatabaseProxyService.
-Создан для запуска в контейнере
+WebApi проект с контроллером, для работы с базой данных на одном физической машине. Запускается на виртуальной машине. Базаз данных может быть как на локальной машине, так и в кластере.
 
 ## Infrastructure
 
@@ -37,3 +27,11 @@ dotnet ef database update -s ../PsyAssistPlatform.AuthService.WebApi/PsyAssistPl
 ### PsyAssistPlatform.AuthService.WebApi
 
 Классическая реализация IdentityServer4 с базой данный Пользователей и Ролей, с использование ASP.Net Core Identity
+
+## IdentityService
+
+WebApi проект с реализацией IdentityServer4.
+Не содержит базу данных пользователей и ролей. Обращается к ней через API DatabaseProxyService.
+Создан для запуска в контейнере
+
+# Docker container

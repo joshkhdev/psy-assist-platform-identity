@@ -63,18 +63,12 @@ public class DbInitializer
 
         foreach (var fakeUser in FakeDataFactory.Users)
         {
-            //fakeUser.UserName = fakeUser.Name.Replace(" ", "");
             var result = await userManager.CreateAsync(fakeUser, "Pass123$");
 
             if (result.Succeeded)
             {
                 var res = await userManager.AddToRoleAsync(fakeUser, fakeUser.RoleType.ToDatabaseString());
             }
-            else
-            {
-                //throw new InvalidOperationException($"Failed to create user {fakeUser.Name}: {result.Errors.First().Description}");
-            }
-
         }
     }
 }
